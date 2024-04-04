@@ -50,7 +50,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "passwordGenerator.urls"
+ROOT_URLCONF = "generatePassword.urls"
 
 TEMPLATES = [
     {
