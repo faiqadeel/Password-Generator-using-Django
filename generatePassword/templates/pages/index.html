@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: darkslategray;
+            color: #ffffff;
+        }
+
+        .container {
+            display: flex;
+            height: 50vh;
+        }
+
+        .left,
+        .right {
+            flex: 1;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .form-container {
+            background-color: #570b0b;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-container {
+            background-color: #570b0b;
+            padding: 1%;
+            border-radius: 8px;
+            margin-left: 500px;
+            margin-right: 500px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+        }
+
+        .form-container h2 {
+            margin-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 40%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group-search {
+            margin-bottom: 15px;
+        }
+
+        .form-group-search label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group-search input {
+            width: 60%;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        .form-group button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .form-group-search button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="form-container">
+                <center>
+
+                    <h2>Generate a Password</h2>
+                </center>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="WebsiteName">Website Name:</label>
+                        <input type="text" id="WebsiteName" name="WebsiteName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <center>
+                        <div class="form-group">
+                            <button type="submit" name="GeneratePassword">Generate Password</button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+        <div class="right">
+            <div class="form-container">
+                <center>
+
+                    <h2>Search for your password</h2>
+                </center>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="searchText">Website Name:</label>
+                        <input type="text" id="searchQuery" name="searchText" required>
+                    </div>
+
+                    <center>
+                        <div class="form-group">
+                            <button name="SearchforPassword" type="submit">Search</button>
+                        </div>
+                    </center>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% if show_search_results %}
+
+    <div class="search-container">
+        <h3>Search Results for: {{ websiteName }}</h3>
+        <div class="form-group-search">
+            <label for="WebsiteName">Website Name:</label>
+            <input type="text" id="WebsiteName" name="WebsiteName" value="{{ websiteName }}" readonly required>
+        </div>
+        <div class="form-group-search">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required value="{{ emailId }}" readonly>
+        </div>
+        <div class="form-group-search">
+            <label for="pswd">Password</label>
+            <input type="text" id="passwordtext" name="email" required value="{{ genPassword }}" readonly>
+
+        </div>
+    </div>
+
+    {% endif %}
+    {% if PasswordGenerated %}
+
+    <div class="search-container">
+        <h3>Password Generated</h3>
+        <div class="form-group-search">
+            <label for="WebsiteName">Website Name:</label>
+            <input type="text" id="WebsiteName" name="WebsiteName" value="{{ websiteName }}" readonly required>
+        </div>
+        <div class="form-group-search">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required value="{{ emailId }}" readonly>
+        </div>
+        <div class="form-group-search">
+            <label for="passwordtext">Password</label>
+            <input type="text" id="passwordtext" name="email" required value="{{ genPassword }}" readonly>
+
+        </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>
+
+
+
+
+
+
+
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>Password Generator</title>
+    <style>
+        .form-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-row label {
+            margin-right: 20px;
+            width: 150px;
+            text-align: right;
+        }
+
+        .form-row input {
+            flex: 1;
+            width: 10px;
+        }
+
+        /* Additional CSS */
+        .form-row:first-child label,
+        .form-row:nth-child(2) label {
+            margin-right: 40px;
+            /* Adjust spacing between label-input pairs */
+        }
+
+        .form-row:last-child {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body style="background-color: darkslategray;">
+    <center>
+        <h1 style=" color: rgb(255, 115, 0);">Password Generator</h1>
+    </center>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <label for="email" style="color: rgb(0, 0, 0); font-size: large; font-weight: bold;">Email:</label>
+            <input type="email" id="email" name="email" required
+                style="background-color: rgb(255, 255, 255); color: bisque; width: 0px; height: 20px;">
+            <label for="app_name" style="color: rgb(0, 0, 0); font-size: large; font-weight: bold;">App/Website
+                Name:</label>
+            <input type="text" id="app_name" name="app_name" required
+                style="background-color: rgb(255, 255, 255); color: bisque; width: 250px; height: 20px;">
+        </div>
+        <div class="form-row">
+        </div>
+
+        <br><br>
+
+        <input type="submit" value="Generate Password"
+            style="height: 30px; background-color: lightgoldenrodyellow; color: rgb(255, 0, 0);">
+    </form>
+</body>
+
+</html> -->
