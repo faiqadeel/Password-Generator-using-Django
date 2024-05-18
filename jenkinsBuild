@@ -1,13 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Build') {
-     agent {
-        docker { image 'django:latest' }
-      }
+    stage('Test') {
       steps {
-        sh 'python3 manage.py runserver 0.0.0.0:8000'
+        sh 'docker build -t pswGen .'
+        sh 'docker run -d -p 8000:8000 pswGen'
       }
     }
-}
+  }
 }
