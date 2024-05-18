@@ -3,8 +3,8 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh 'docker build -t pswgen .'
-        sh 'docker run -d -p 8000:8000 pswgen'
+        sh 'sudo docker build -t pswgen .'
+        sh 'sudo docker run -d -p 8000:8000 pswgen'
       }
     }
   }
